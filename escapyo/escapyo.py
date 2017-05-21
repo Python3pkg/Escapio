@@ -1,6 +1,6 @@
 # Library which provides escapio connectivity
 
-import xmlrpclib
+import xmlrpc.client
 
 ESCAPIO_BOARDS= {
  'nf': 'NO_BOARD',
@@ -12,7 +12,7 @@ ESCAPIO_BOARDS= {
 
 def getServer(url, u, p):
   surl= url % (u, p)
-  return xmlrpclib.Server(surl)
+  return xmlrpc.client.Server(surl)
 
 class Escapio:
   _url= '_connection_url'
@@ -33,7 +33,7 @@ class Escapio:
     if n:
       d['name']= n
       return
-    for k,v in t.items():
+    for k,v in list(t.items()):
       if v['name']:
         d['name']= v['name']
         return d
